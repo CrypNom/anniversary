@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Photo Gallery — Prem &amp; Niruta</title>
+<meta name="description" content="A gallery of Prem and Niruta's favorite photos together.">
+<link rel="icon" href="assets/images/favicon-src.svg" type="image/svg+xml">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/pages.css">
+
+</head>
+<body>
+
+<div class="bg-mesh"></div>
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+<div class="blob blob-3"></div>
+
+<nav class="site-nav">
+  <a href="index.html" class="nav-brand"><span class="heart-mark">💗</span> Prem &amp; Niruta</a>
+  <button class="nav-toggle" aria-label="Toggle menu">☰</button>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="our-story.html">Our Story</a></li>
+    <li><a href="timeline.html">Timeline</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="letters.html">Love Letters</a></li>
+    <li><a href="memories.html">Fun Memories</a></li>
+    <li><a href="wishes.html">Wishes</a></li>
+    <li><a href="closing.html">Forever ✨</a></li>
+  </ul>
+</nav>
+
+<main>
+
+  <section class="page-hero wrap wrap--tight">
+    <span class="eyebrow">chapter three</span>
+    <h1>Photo Gallery</h1>
+    <p style="color:var(--ink-soft); max-width:600px; margin:0 auto;">A year of moments, big and small. Click any photo to see it up close.</p>
+  </section>
+
+  <section class="wrap wrap--tight">
+    <div class="gallery-grid">
+    <div class="g-item reveal" data-caption="Our First Coffee Date">
+      <img src="assets/images/gallery-01.png" alt="Our First Coffee Date" loading="lazy">
+      <span class="g-caption">Childhood</span>
+    </div>
+    <div class="g-item reveal" data-caption="Sunset Walk">
+      <img src="assets/images/gallery-02.jpg" alt="Sunset Walk" loading="lazy">
+      <span class="g-caption">Latenight Pokhara</span>
+    </div>
+    <div class="g-item reveal" data-caption="Silly Selfie">
+      <img src="assets/images/gallery-03.jpg" alt="Silly Selfie" loading="lazy">
+      <span class="g-caption">Farewell</span>
+    </div>
+    <div class="g-item reveal" data-caption="Dancing in the Rain">
+      <img src="assets/images/gallery-04.jpg" alt="Dancing in the Rain" loading="lazy">
+      <span class="g-caption">Welcome program</span>
+    </div>
+    <div class="g-item reveal" data-caption="Trip to the Hills">
+      <img src="assets/images/gallery-05.jpg" alt="Trip to the Hills" loading="lazy">
+      <span class="g-caption">Mustang</span>
+    </div>
+    <div class="g-item reveal" data-caption="Movie Night">
+      <img src="assets/images/gallery-06.jpg" alt="Movie Night" loading="lazy">
+      <span class="g-caption">Muktinath</span>
+    </div>
+    <div class="g-item reveal" data-caption="Birthday Surprise">
+      <img src="assets/images/gallery-07.jpg" alt="Birthday Surprise" loading="lazy">
+      <span class="g-caption">College days</span>
+    </div>
+    <div class="g-item reveal" data-caption="Cooking Together">
+      <img src="assets/images/gallery-08.jpg" alt="Cooking Together" loading="lazy">
+      <span class="g-caption">Rupse jharana</span>
+    </div>
+    <div class="g-item reveal" data-caption="Beach Afternoon">
+      <img src="assets/images/gallery-09.jpg" alt="Beach Afternoon" loading="lazy">
+      <span class="g-caption">Pokhara</span>
+    </div>
+    <div class="g-item reveal" data-caption="Lazy Sunday">
+      <img src="assets/images/gallery-10.jpg" alt="Lazy Sunday" loading="lazy">
+      <span class="g-caption">Garden of dreams</span>
+    </div>
+    <div class="g-item reveal" data-caption="Festival Lights">
+      <img src="assets/images/gallery-11.jpg" alt="Festival Lights" loading="lazy">
+      <span class="g-caption">Walk</span>
+    </div>
+    <div class="g-item reveal" data-caption="First 'I Love You'">
+      <img src="assets/images/gallery-12.jpg" alt="First 'I Love You'" loading="lazy">
+      <span class="g-caption">Dhumba lake'</span>
+    </div>
+    </div>
+  </section>
+
+  <!-- Lightbox modal, shared by every gallery image -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" aria-label="Close">✕</button>
+    <button class="lightbox-nav lightbox-prev" aria-label="Previous">‹</button>
+    <div class="lightbox-inner">
+      <img class="lightbox-img" src="" alt="Enlarged memory">
+      <p class="lightbox-caption"></p>
+    </div>
+    <button class="lightbox-nav lightbox-next" aria-label="Next">›</button>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="liquid-ribbon"></div>
+  <p class="footer-love">Made with 💗 for one year, and every year after</p>
+  <nav class="page-links">
+    <a href="index.html">Home</a>
+    <a href="our-story.html">Our Story</a>
+    <a href="timeline.html">Timeline</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="letters.html">Love Letters</a>
+    <a href="memories.html">Fun Memories</a>
+    <a href="wishes.html">Wishes</a>
+    <a href="closing.html">Forever</a>
+  </nav>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/components.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,389 @@
+/* ==========================================================================
+   PREM & NIRUTA — "One Year, Ever After"
+   Global Stylesheet
+   --------------------------------------------------------------------------
+   DESIGN SYSTEM (token summary — see README.md for the full rationale)
+
+   Palette:
+     --blush, --lavender, --sky, --peach   → background gradient mesh
+     --magenta-glow, --violet-glow, --aqua-glow → neon-pastel accents
+     --ink                                  → primary text (deep plum, AA-safe)
+     --glass                                → frosted glass surface color
+
+   Type:
+     --font-display  "Fraunces"  → romantic, soft-serif, used for headlines
+     --font-script   "Caveat"    → handwritten accents, love-note captions
+     --font-body     "Quicksand"→ rounded, friendly, used for paragraphs/UI
+
+   Signature element:
+     The "liquid ribbon" — a flowing, morphing gradient line that appears in
+     the nav, section dividers and footer of every page. It represents the
+     couple's story flowing continuously from one chapter (page) to the next.
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Quicksand:wght@400;500;600;700&family=Caveat:wght@500;600;700&display=swap');
+
+/* -------------------------------- Reset -------------------------------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--font-body);
+  color: var(--ink);
+  overflow-x: hidden;
+}
+img { max-width: 100%; display: block; }
+a { text-decoration: none; color: inherit; }
+ul { list-style: none; margin: 0; padding: 0; }
+button { font-family: inherit; cursor: pointer; }
+h1, h2, h3, h4 { font-family: var(--font-display); margin: 0 0 .5em; line-height: 1.15; }
+p { line-height: 1.7; }
+
+/* ------------------------------- Tokens --------------------------------- */
+:root {
+  /* base palette */
+  --blush:    #ffd9e8;
+  --lavender: #e3d1ff;
+  --sky:      #cfefff;
+  --peach:    #ffe7d1;
+  --mint:     #d1fff0;
+
+  /* neon-pastel accents (used sparingly, for glow + CTAs) */
+  --magenta-glow: #ff6fa5;
+  --violet-glow:  #b285ff;
+  --aqua-glow:    #5fe1d6;
+
+  /* text + surfaces */
+  --ink: #3b2a4a;
+  --ink-soft: #6b5a7d;
+  --glass: rgba(255, 255, 255, 0.38);
+  --glass-strong: rgba(255, 255, 255, 0.55);
+  --glass-border: rgba(255, 255, 255, 0.65);
+  --shadow-glow: 0 8px 32px rgba(178, 133, 255, 0.25);
+
+  /* type */
+  --font-display: "Fraunces", "Iowan Old Style", serif;
+  --font-script: "Caveat", cursive;
+  --font-body: "Quicksand", "Trebuchet MS", sans-serif;
+
+  /* layout */
+  --page-max: 1180px;
+  --radius-lg: 32px;
+  --radius-md: 22px;
+  --radius-sm: 14px;
+}
+
+/* ---------------------- Animated pastel mesh backdrop -------------------
+   A slow-shifting gradient mesh sits behind every page (fixed, so it stays
+   put while content scrolls). Three soft "liquid blobs" drift and morph
+   using border-radius keyframes — cheap on GPU, no canvas needed.
+---------------------------------------------------------------------------*/
+.bg-mesh {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background: linear-gradient(120deg, var(--blush), var(--sky) 45%, var(--lavender) 75%, var(--peach));
+  background-size: 300% 300%;
+  animation: meshShift 22s ease-in-out infinite;
+}
+@keyframes meshShift {
+  0%   { background-position: 0% 30%; }
+  50%  { background-position: 100% 70%; }
+  100% { background-position: 0% 30%; }
+}
+
+.blob {
+  position: fixed;
+  z-index: -1;
+  filter: blur(60px);
+  opacity: .55;
+  animation: blobMorph 14s ease-in-out infinite, blobDrift 26s ease-in-out infinite;
+  pointer-events: none;
+}
+.blob-1 { top: -10%; left: -8%;  width: 42vw; height: 42vw; background: var(--magenta-glow); animation-delay: 0s, 0s; }
+.blob-2 { bottom: -15%; right: -10%; width: 46vw; height: 46vw; background: var(--violet-glow); animation-delay: 2s, 3s; }
+.blob-3 { top: 35%; right: 20%; width: 28vw; height: 28vw; background: var(--aqua-glow); animation-delay: 4s, 6s; opacity: .35; }
+
+@keyframes blobMorph {
+  0%, 100% { border-radius: 42% 58% 65% 35% / 45% 40% 60% 55%; }
+  33%      { border-radius: 65% 35% 45% 55% / 55% 65% 35% 45%; }
+  66%      { border-radius: 35% 65% 55% 45% / 35% 45% 55% 65%; }
+}
+@keyframes blobDrift {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50%      { transform: translate(4%, -4%) scale(1.08); }
+}
+
+/* ------------------------------ Liquid ribbon ---------------------------
+   Signature motif: a thin flowing gradient line used as a divider + the
+   nav's underline + footer accent. Animated with a moving background
+   gradient to feel like liquid running through it.
+---------------------------------------------------------------------------*/
+.liquid-ribbon {
+  height: 6px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--magenta-glow), var(--violet-glow), var(--aqua-glow), var(--magenta-glow));
+  background-size: 300% 100%;
+  animation: ribbonFlow 6s linear infinite;
+  box-shadow: 0 0 16px rgba(178,133,255,.45);
+}
+@keyframes ribbonFlow {
+  0%   { background-position: 0% 50%; }
+  100% { background-position: 300% 50%; }
+}
+
+/* --------------------------------- Nav ----------------------------------*/
+.site-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: .9rem 1.5rem;
+  background: var(--glass);
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  border-bottom: 1px solid var(--glass-border);
+}
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: .55rem;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.15rem;
+  color: var(--ink);
+}
+.nav-brand .heart-mark {
+  width: 22px; height: 22px;
+  display: inline-block;
+  animation: pulseHeart 1.6s ease-in-out infinite;
+}
+@keyframes pulseHeart { 0%,100% { transform: scale(1); } 50% { transform: scale(1.18); } }
+
+.nav-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .2rem 1.1rem;
+  font-size: .92rem;
+  font-weight: 600;
+}
+.nav-links a {
+  position: relative;
+  padding: .35rem .2rem;
+  color: var(--ink-soft);
+  transition: color .25s ease;
+  white-space: nowrap;
+}
+.nav-links a::after {
+  content: "";
+  position: absolute; left: 0; right: 100%; bottom: -2px;
+  height: 3px; border-radius: 999px;
+  background: linear-gradient(90deg, var(--magenta-glow), var(--violet-glow));
+  transition: right .3s ease;
+}
+.nav-links a:hover, .nav-links a.active { color: var(--ink); }
+.nav-links a:hover::after, .nav-links a.active::after { right: 0; }
+
+.nav-toggle {
+  display: none;
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  border: none;
+  background: var(--glass-strong);
+  align-items: center; justify-content: center;
+  font-size: 1.1rem;
+}
+
+@media (max-width: 880px) {
+  .nav-toggle { display: flex; }
+  .nav-links {
+    position: absolute;
+    top: 100%; left: 0; right: 0;
+    flex-direction: column;
+    background: var(--glass-strong);
+    backdrop-filter: blur(20px);
+    padding: 1rem 1.5rem 1.4rem;
+    border-bottom: 1px solid var(--glass-border);
+    display: none;
+  }
+  .nav-links.open { display: flex; }
+}
+
+/* ------------------------------- Layout ---------------------------------*/
+main { position: relative; z-index: 1; }
+.wrap {
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: 4.5rem 1.5rem;
+}
+.wrap--tight { padding-top: 2.5rem; padding-bottom: 2.5rem; }
+.section-head { text-align: center; max-width: 720px; margin: 0 auto 2.75rem; }
+.eyebrow {
+  display: inline-block;
+  font-family: var(--font-script);
+  font-size: 1.35rem;
+  color: var(--magenta-glow);
+  margin-bottom: .25rem;
+}
+.section-head h2 { font-size: clamp(1.8rem, 4vw, 2.7rem); }
+.section-head p { color: var(--ink-soft); font-size: 1.05rem; }
+
+/* ------------------------------ Glass card -------------------------------*/
+.glass-card {
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  box-shadow: var(--shadow-glow);
+  transition: transform .35s ease, box-shadow .35s ease;
+}
+.glass-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 44px rgba(178, 133, 255, 0.35);
+}
+.glass-card--pad { padding: 2rem; }
+
+/* ------------------------------- Buttons ---------------------------------*/
+.btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .85rem 1.7rem;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: .95rem;
+  border: none;
+  overflow: hidden;
+  isolation: isolate;
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+.btn--primary {
+  color: #fff;
+  background: linear-gradient(135deg, var(--magenta-glow), var(--violet-glow));
+  box-shadow: 0 8px 24px rgba(255, 111, 165, 0.45);
+}
+.btn--ghost {
+  color: var(--ink);
+  background: var(--glass-strong);
+  border: 1px solid var(--glass-border);
+}
+.btn:hover { transform: translateY(-3px) scale(1.03); }
+.btn:active { transform: translateY(0) scale(0.98); }
+/* liquid shine sweep on hover */
+.btn::before {
+  content: "";
+  position: absolute; inset: 0;
+  background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,.55) 50%, transparent 70%);
+  transform: translateX(-120%);
+  transition: transform .6s ease;
+  z-index: -1;
+}
+.btn:hover::before { transform: translateX(120%); }
+
+/* -------------------------- Floating hearts layer ------------------------
+   A fixed canvas-free layer: JS spawns small heart <span> elements that
+   float upward and fade — lightweight ambient romance, not distracting.
+---------------------------------------------------------------------------*/
+#floating-hearts {
+  position: fixed; inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  overflow: hidden;
+}
+.f-heart {
+  position: absolute;
+  bottom: -5%;
+  font-size: 1.2rem;
+  opacity: 0;
+  animation: floatUp linear forwards;
+  filter: drop-shadow(0 0 6px rgba(255,111,165,.55));
+}
+@keyframes floatUp {
+  0%   { opacity: 0; transform: translateY(0) translateX(0) rotate(0deg); }
+  10%  { opacity: .85; }
+  90%  { opacity: .6; }
+  100% { opacity: 0; transform: translateY(-110vh) translateX(var(--drift, 40px)) rotate(25deg); }
+}
+
+/* --------------------------- Custom cursor sparkle ------------------------*/
+.cursor-glow {
+  position: fixed;
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,111,165,.85), rgba(178,133,255,0));
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  mix-blend-mode: multiply;
+  transition: width .2s ease, height .2s ease, opacity .2s ease;
+}
+@media (hover: none) { .cursor-glow { display: none; } }
+
+/* ------------------------------ Reveal on scroll --------------------------*/
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity .8s ease, transform .8s ease;
+}
+.reveal.is-visible { opacity: 1; transform: translateY(0); }
+.reveal-scale { opacity: 0; transform: scale(.92); transition: opacity .8s ease, transform .8s ease; }
+.reveal-scale.is-visible { opacity: 1; transform: scale(1); }
+
+/* -------------------------------- Footer ---------------------------------*/
+.site-footer {
+  position: relative;
+  z-index: 1;
+  padding: 3rem 1.5rem 2.5rem;
+  text-align: center;
+  color: var(--ink-soft);
+}
+.site-footer .liquid-ribbon { max-width: 260px; margin: 0 auto 1.4rem; }
+.footer-love {
+  font-family: var(--font-script);
+  font-size: 1.3rem;
+  color: var(--magenta-glow);
+}
+.page-links {
+  margin-top: 1.2rem;
+  display: flex; flex-wrap: wrap; gap: .4rem 1rem; justify-content: center;
+  font-size: .85rem;
+}
+
+/* -------------------------------- Utilities -------------------------------*/
+.text-center { text-align: center; }
+.grid { display: grid; gap: 1.6rem; }
+.grid-2 { grid-template-columns: repeat(2, 1fr); }
+.grid-3 { grid-template-columns: repeat(3, 1fr); }
+.grid-4 { grid-template-columns: repeat(4, 1fr); }
+@media (max-width: 920px) { .grid-3, .grid-4 { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; } }
+
+.tag-chip {
+  display: inline-block;
+  padding: .35rem .9rem;
+  border-radius: 999px;
+  background: var(--glass-strong);
+  border: 1px solid var(--glass-border);
+  font-size: .78rem;
+  font-weight: 700;
+  color: var(--ink-soft);
+}
+
+::selection { background: var(--magenta-glow); color: #fff; }
+
+/* scrollbar (webkit) */
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: linear-gradient(var(--magenta-glow), var(--violet-glow)); border-radius: 999px; }
+
+/* ------------------------------ Reduced motion ----------------------------*/
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
+  .bg-mesh, .blob, .liquid-ribbon { animation: none !important; }
+}
